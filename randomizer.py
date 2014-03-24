@@ -8,7 +8,7 @@
 # Date of last modification: 6 March 2014  #
 ############################################
 
-import sys, os, re, optparse
+import sys, os, re, argparse
 
 def main():
 	return	# main()
