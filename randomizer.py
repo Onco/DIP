@@ -17,18 +17,18 @@ def main():
 	parser.add_argument('-o', '--outname', nargs='?', default="IMG_", help='Prefix of the output image files. (default is "IMG_")')
 	args = parser.parse_args()
 
-	count = len(args.video_file)
+	cntvid = len(args.video_file)
 
 	for vfile in args.video_file:
 		video = cv2.VideoCapture(vfile)
-		numf = video.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
+		cframe = video.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
 
-	for im in range(0,args.num):
-		video.set(cv2.cv.CV_CAP_PROP_FRAME_COUNT,random.randint(0, numf))
-		ret, image = video.read()
-	    cv2.imwrite("%(name)s%(count)d.jpg" % {"name": args.outname, "count": im}, image)
+		for im in range(0,int(args.num/cntvid)):
+			video.set(cv2.cv.CV_CAP_PROP_FRAME_COUNT,random.randint(0, numf))
+			ret, image = video.read()
+			cv2.imwrite("%(name)s%(count)d.jpg" % {"name": args.outname, "count": im}, image)
 		
-    video.release()        
+		video.release()        
 
 
 	return	# main()
