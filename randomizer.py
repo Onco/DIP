@@ -4,8 +4,8 @@
 # Autor: Ondrej Vavro                      #
 # Description: Randomly selects specified  #
 # number of images from the provided video #
-# files.                                   #
-# Date of last modification: 1 April 2014  #
+# file(s).                                 #
+# Date of last modification: 3 April 2014  #
 ############################################
 
 import sys, os, re, argparse, cv2, random
@@ -18,23 +18,24 @@ def main():
 	args = parser.parse_args()
 
 	cntvid = len(args.video_file)
-	c=0
+	
     
-    # select random file from input files and select random? number of images from the first file :) (perhaps random from 1st, num_of_imgs - random, random from 2nd, num_of_imgs - random, etc...)
-    vfile = args.video_file.pop(random.randint(0, cntvid))	# pop gives an exception - not good
-    cntvid -= 1
-	while (cntvid >= 0): # use try/catch instead of counting? other function? how?
+    # 1) compute how many images you want from single file (using the provided number of images and the number of video files) -> CHOSEN
+    # 2) or, randomly choose a number (0 to provided num of images) and after selecting (randomly) this amount of images from a random (?) video continue on other videos similarly, until all required images are selected
+    # 3) or, randomly choose a number from computed range (related to provided number of images and number of video files + precision constant) and select that number of images from a video file (random?), proceed like this further 
+    c=0
+	while (cntvid >= 0):
+	    vfile = args.video_file.pop(random.randint(0, cntvid))
 		video = cv2.VideoCapture(vfile)
 		cframe = video.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT)
 
-		for im in range(0,int(args.num/cntvid)):
+		for im in range(0,int(args.num/cntvid)): # randomize the selected number of images?
 			video.set(cv2.cv.CV_CAP_PROP_FRAME_COUNT,random.randint(0, cframe))
 			ret, image = video.read()
 			cv2.imwrite("%(name)s%(count)d.jpg" % {"name": args.outname, "count": c}, image)
 			c+=1
 		
 		video.release()        
-        vfile = args.video_file.pop(random.randint(0, cntvid))	# this here?
         cntvid -= 1
 
 	return	# main()
