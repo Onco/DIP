@@ -12,10 +12,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         heartbeat.cpp \
-    ui_about.cpp
+    heartsplashscreen.cpp
 
 HEADERS  += heartbeat.h \
-    ui_about.h
+    heartsplashscreen.h
 
-FORMS    += heartbeat.ui \
-    ui_about.ui
+FORMS    += heartbeat.ui
+
+RESOURCES += \
+    resources.qrc

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/logo.png</file>
+        <file>img/HeartBeat64.png</file>
+        <file>img/HeartBeat80.png</file>
+    </qresource>
+</RCC>
